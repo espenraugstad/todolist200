@@ -1,16 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <h1>Create User</h1>
+
     <label for="inpUsername">Username </label>
-    <input id="inpUsername" type="text" /><br>
+    <input id="inpUsername" type="text"/> <br>
+
     <label for="inpPassword">Password</label>
-    <input id="inpPassword" type="password" /><br>
+    <input id="inpPassword" type="password"/> <br>
+    
     <button id="btnCreateUser">Create</button>
+
 </body>
+
+<script>
+    let inpUsername = document.getElementById('inpUsername');
+    let inpPassword = document.getElementById('inpPassword');
+    let btnCreateUser = document.getElementById('btnCreateUser');
+
+    btnCreateUser.addEventListener('click', async () => {
+        //Package username and password in header like in basic auth
+        const userinfo = btoa(inpUsername.value+':'+inpPassword.value);
+
+        const url = '/createUser';
+        
+        const config = {
+            method: 'post',
+            headers: {
+                'content-type': 'application/json',
+                user: userinfo
+            }
+        }
+
+        let result = await fetch(url, config);
+        console.log(result);
+
+    });
+
+
+
+</script>
+
 </html>
